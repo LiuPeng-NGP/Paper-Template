@@ -1,0 +1,49 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{geometry}
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }% For margin of paper
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage[backend=biber,style=numeric,maxnames=3,minnames=1]{biblatex} % Adjust maxnames and minnames
+\addbibresource{references.bib} % Specify your .bib file
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{ragged2e}
+
+\input{math_commands.tex}
+
+\title{Paper Template}
+
+\author{%
+  Author1\\
+  Institution\\
+  mail@outlook.com
+  \and
+  Author2\\
+  Institution\\
+  mail@outlook.com
+}
+
+\begin{document}
+\maketitle
+
+\input{document/abstract.tex}
+\input{document/introduction.tex}
+\input{document/body.tex}
+\input{document/conclusion.tex}
+
+\printbibliography
+
+\input{document/appendix.tex}
+
+
+
+
+
+
+\end{document}
