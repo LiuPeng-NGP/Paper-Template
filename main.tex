@@ -1,49 +1,170 @@
-\documentclass{article} % For LaTeX2e
-\usepackage{geometry}
-\geometry{
- a4paper,
- total={170mm,257mm},
- left=20mm,
- top=20mm,
- }% For margin of paper
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{graphicx}
-\usepackage[backend=biber,style=numeric,maxnames=3,minnames=1]{biblatex} % Adjust maxnames and minnames
-\addbibresource{references.bib} % Specify your .bib file
-\usepackage{hyperref}
-\usepackage{url}
-\usepackage{ragged2e}
+% Compile with: latexmk -xelatex main.tex
+\ifdefined\pdfminorversion\pdfminorversion=7\fi
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+\fi
+\usepackage{newtxtext}
+\usepackage{amsmath,amsfonts}
+\usepackage{newtxmath}
+\usepackage{bm}
+\usepackage[numbers,square,sort&compress]{natbib}
+\usepackage{booktabs,graphicx,array,placeins}
+\usepackage{microtype,xcolor}
+\usepackage{etoc,titlesec,enumitem}
+\usepackage[font=small,labelfont=bf,labelsep=period,
+    justification=raggedright,singlelinecheck=false]{caption}
+\usepackage[pdfversion=1.7]{hyperref}
 
-\input{math_commands.tex}
+% Page layout and headings
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt plus 1pt minus 1pt}
+\setlist{topsep=4pt,itemsep=2pt,parsep=0pt,partopsep=0pt}
+\titleformat{\section}{\large\bfseries}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.7em}{}
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{14pt plus 2pt minus 2pt}{6pt plus 1pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 2pt minus 1pt}{4pt plus 1pt}
+\titlespacing*{\paragraph}{0pt}{7pt plus 1pt}{0.5em}
+\widowpenalty=10000
+\clubpenalty=10000
+\setlength{\emergencystretch}{3em}
 
-\title{Paper Template}
+% Captions, floats, and references
+\captionsetup[table]{skip=5pt}
+\captionsetup*[figure]{skip=6pt}
+\setlength{\textfloatsep}{14pt plus 3pt minus 3pt}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.7}
+\renewcommand{\bibfont}{\small}
+\setlength{\bibsep}{3pt plus 1pt}
 
-\author{%
-  Author1\\
-  Institution\\
-  mail@outlook.com
-  \and
-  Author2\\
-  Institution\\
-  mail@outlook.com
+% Title and abstract
+\makeatletter
+\renewcommand{\@maketitle}{%
+    \begin{center}
+    {\fontsize{19}{23}\selectfont\bfseries\@title\par}
+    \vspace{9pt}
+    {\normalsize\begin{tabular}[t]{c}\@author\end{tabular}\par}
+    \end{center}
+    \vspace{5pt}%
+}
+\makeatother
+\renewenvironment{abstract}{%
+    \par\small\noindent\textbf{Abstract}\par\nobreak
+    \vspace{3pt}\noindent\ignorespaces
+}{\par\vspace{7pt}}
+
+% These names also populate the PDF metadata.
+\newcommand{\papertitle}{Paper Title}
+\newcommand{\paperauthors}{Author Name}
+\title{\papertitle}
+\author{\paperauthors\\[3pt]
+    {\small Institution}\\
+    {\small\texttt{author@example.org}}}
+\date{}
+\definecolor{linkblue}{HTML}{2C5282}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    citecolor=linkblue,
+    urlcolor=linkblue,
+    pdftitle={\papertitle},
+    pdfauthor={\paperauthors}
 }
 
 \begin{document}
+\etocdepthtag.toc{main}
 \maketitle
 
-\input{document/abstract.tex}
-\input{document/introduction.tex}
-\input{document/body.tex}
-\input{document/conclusion.tex}
+\begin{abstract}
+State the research question, describe how you investigated it, and report the
+main result. End with what that result tells the reader about the question.
+\end{abstract}
 
-\printbibliography
+\section{Introduction}
+Introduce the problem, explain why it matters, and state the contribution.
 
-\input{document/appendix.tex}
+\section{Related Work}
+Position the contribution relative to the closest prior work. For example,
+LeCun et al.\ survey the foundations of deep learning~\citep{lecun2015}.
 
+\section{Method}
+Describe the data, assumptions, and procedure. Refer readers to
+Appendix~\ref{app:details} for details needed to reproduce the work.
 
+\section{Results}
+Use Table~\ref{tab:results} to report the primary comparison and explain what
+the observed difference means.
 
+\begin{table}[htbp]
+    \centering
+    \small
+    \caption{Primary comparison on the evaluation set. Replace the column
+        heading with the metric and its unit.}
+    \label{tab:results}
+    \begin{tabular}{@{}lr@{}}
+        \toprule
+        Method & Score \\
+        \midrule
+        Baseline        & --- \\
+        Proposed method & --- \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
+% To include a figure, replace the filename and uncomment this block.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=\linewidth]{figure.pdf}
+%     \caption{Describe the figure and explain its symbols.}
+%     \label{fig:example}
+% \end{figure}
 
+\section{Discussion and Limitations}
+Explain which conclusions the evidence supports and where they may no longer hold.
+
+\section{Conclusion}
+Give the answer to the research question in a sentence or two.
+
+% \subsection*{AI Use Statement}
+% Describe how AI tools contributed to the work, if applicable.
+
+% List entries in order of first citation to match the manuscript's unsrtnat style.
+\begin{thebibliography}{1}
+\bibitem[LeCun et~al.(2015)LeCun, Bengio, and Hinton]{lecun2015}
+Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.
+Deep learning.
+\emph{Nature}, 521(7553):436--444, 2015.
+\end{thebibliography}
+
+\clearpage
+\appendix
+\etocdepthtag.toc{appendix}
+
+% The contents list includes only appendix sections and subsections.
+\begingroup
+\setlength{\parskip}{0pt}
+\etocsettagdepth{main}{none}
+\etocsettagdepth{appendix}{subsection}
+\etocstandardlines
+\etocsettocstyle{\section*{Appendix Contents}}{}
+\hypersetup{linktoc=page}
+\pdfbookmark[1]{Appendix Contents}{appendix-contents}
+\tableofcontents
+\endgroup
+% For a long appendix, use \clearpage here to give its contents a separate page.
+
+\section{Implementation Details}
+\label{app:details}
+\subsection{Experimental Setup}
+Record the data version, parameter settings, and evaluation procedure needed
+to reproduce Table~\ref{tab:results}.
 
 \end{document}
