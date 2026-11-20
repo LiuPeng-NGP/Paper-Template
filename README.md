@@ -1,4 +1,4 @@
 # Paper-Template
 
-Edit `main.tex` to write the paper, references, and appendix in one file.
-Build the PDF with `latexmk -xelatex main.tex`.
+Write the paper and appendix in `main.tex` and keep BibTeX entries in `references.bib`.
+Run `latexmk -xelatex main.tex` to build the PDF with its numbered references.
